@@ -1,0 +1,51 @@
+<html>
+
+<head>
+
+    <style>
+
+      body {
+          background: url(background.png) no-repeat;
+          background-size: 100% 100%;
+        }
+        #panel {
+            width: auto;
+            height: auto;
+            background: rgba(100,100,100,0.5);
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        #panel > input {
+            margin: 10px auto;
+            display: block;
+        }
+
+        #panel > .sliderLabel {
+            text-align: center;
+            margin: 10px auto;
+            display: block;
+            font-family: Helvetica, Arial, sans-serif;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="main"></div>
+    <script src="./two.min.js"></script>
+    <script src="./math.min.js"></script>
+    <script src="./main.js"></script>
+    <div id="panel">
+        <p class="sliderLabel">Observation error</p>
+        <input type="range" id="obsErr" value="50">
+        <p class="sliderLabel">Assimilation frequency</p>
+        <input type="range" id="assim_freq" value="50">
+    </div>
+</body>
+
+</html>
