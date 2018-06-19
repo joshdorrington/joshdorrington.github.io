@@ -72,7 +72,6 @@
     function plotTruth(loc_i, loc_f) {
         loc_i_px = mapToPx(loc_i);
         loc_f_px = mapToPx(loc_f);
-        console.log(loc_f_px)
         var handle = two.makeLine(loc_i_px.x, loc_i_px.y, loc_f_px.x, loc_f_px.y);
         handle.stroke = 'rgb(255,255,255)';
         handle.linewidth = 2.0;
