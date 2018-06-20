@@ -10,7 +10,7 @@
     // Global parameters
     var dt = 0.0001,
         nEns = 80,
-        assim_freq = 55,
+        noise_type="determ"
         originalObsErr = obsErr = 5,
         freq = 2000;
 
@@ -21,7 +21,8 @@
         x1f=0.95,
         x4f=-0.76095,
         epsilon=16*Math.sqrt(2)/(5*Math.PI),
-        beta=1.25;
+        beta=1.25,
+        sigma=0.007;
 
     //and the derived spectral coefficients
     var beta1=beta*b*b/(1+b*b),
@@ -51,12 +52,21 @@
     // Main loop
     two.bind("update", function(frameCount) {
         for (var i = 0; i < freq; i++) {
+            UpdateFromUI()
             // Step truth forward
+            if (noise_type=="determ"){
             truth_f = step(truth_i);
+            }
+            if (noise_type=="stoch"){
+              noise=WhiteNoise()
+              //adds white noise onto deterministic update
+              truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
+            }
             truth_i = truth_f;
         }
 
         // Update truth
+
         handles.push(plotTruth(truth_i_plot, truth_f));
 
         // Update opacity
@@ -68,6 +78,28 @@
     setInterval(function() {
         two.update();
     }, 24);
+
+    //box muller, returns normally distributed random number
+    function randn_bm() {
+        var u = 0, v = 0;
+        while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+        while(v === 0) v = Math.random();
+        var R=Math.sqrt( -2.0 * Math.log( u ))
+        return  [R*Math.cos(2.0*Math.PI*v),R*Math.sin(2.0*Math.PI*v)];
+    }
+    function WhiteNoise(){
+       var noise_vec = new Array(6)
+       for (var i = 0; i < 2+(noise_vec.length)/2; i=i+2) {
+       		 arr=randn_bm()
+           noise_vec[i]=arr[0]
+           noise_vec[i+1]=arr[1]
+       }
+       return noise_vec
+    }
+
+    function UpdateFromUI(){
+        noise_type=doc.getElementById('noise_mode').value
+      }
 
     function plotTruth(loc_i, loc_f) {
         loc_i_px = mapToPx(loc_i);
@@ -150,15 +182,12 @@
         return -C*(x3)-beta1*x2-gamma1*x1+alpha1*x1*x2+delta1*x4*x5
     }
      function dX4dT(x1,x2,x3,x4,x5,x6){
-        var σ = 10.0;
         return -C*(x4-x4f)+gammatilde2*x6+epsilon*(x2*x6-x3*x5)
     }
      function dX5dT(x1,x2,x3,x4,x5,x6){
-        var σ = 10.0;
         return -C*(x5)+beta2*x6-alpha2*x1*x6-delta2*x3*x4
     }
      function dX6dT(x1,x2,x3,x4,x5,x6){
-        var σ = 10.0;
         return -C*(x6)-beta2*x5-gamma2*x4+alpha2*x1*x5+delta2*x2*x4
     }
 
