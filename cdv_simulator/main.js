@@ -63,14 +63,18 @@
               truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
             }
             if (noise_type=="hi_stoch"){
+              //make noise in EOF space, zero eofs 4-6, and map back to x-space
               noise=WhiteNoise()
               noise[3]=noise[4]=noise[5]=0
+              noise=inverse_eof_transform(noise)
               //adds white noise onto deterministic update
               truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
             }
             if (noise_type=="lo_stoch"){
+              //make noise in EOF space, zero eofs 1-3, and map back to x-space
               noise=WhiteNoise()
               noise[0]=noise[1]=noise[2]=0
+              noise=inverse_eof_transform(noise)
               //adds white noise onto deterministic update
               truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
             }
@@ -149,19 +153,22 @@
     }
 
     function mapToCoord(loc_px) {
-
-        //applies inverse eof transform
-        var eof_inverse=math.matrix([[ 0.24480295,0.0496688,-0.43292675,0.62904923,0.09100189,0.58838311],
-        [-0.16261957, -0.44083483, -0.23104762, -0.49480442, -0.44425248,0.53258318],
-        [ 0.54734502, -0.21379727, -0.26855881,  0.14640603, -0.57997197,-0.4741077 ],
-        [-0.47431644, -0.25879109,  0.45143826,  0.56826685, -0.42571605,0.00965485],
-        [-0.0384    ,  0.82575797,  0.05266652, -0.09479475, -0.52607519,0.16773285],
-        [-0.6225666 ,  0.09294802, -0.69317914,  0.07821558, -0.00128128,-0.3422789 ]])
         //the 4 smallest eof modes are set to the climatological mean value
         var scaled_px=[(1.024*loc_px[0]/two.width)-0.28,(-1.023*loc_px[1]/two.height)+0.685,-0.7325,0.1736,0.3842,0.5871]
-        return math.multiply(eof_inverse,scaled_px)._data
+        return inverse_eof_transform(scaled_px)
     }
 
+    //applies inverse eof transform
+    function inverse_eof_transform(input_vector){
+      var eof_inverse=math.matrix([[ 0.24480295,0.0496688,-0.43292675,0.62904923,0.09100189,0.58838311],
+      [-0.16261957, -0.44083483, -0.23104762, -0.49480442, -0.44425248,0.53258318],
+      [ 0.54734502, -0.21379727, -0.26855881,  0.14640603, -0.57997197,-0.4741077 ],
+      [-0.47431644, -0.25879109,  0.45143826,  0.56826685, -0.42571605,0.00965485],
+      [-0.0384    ,  0.82575797,  0.05266652, -0.09479475, -0.52607519,0.16773285],
+      [-0.6225666 ,  0.09294802, -0.69317914,  0.07821558, -0.00128128,-0.3422789 ]])
+
+      return math.multiply(eof_inverse,input_vector)._data
+    }
     // Runge-Kutta integration
     function step(prev) {
         var k1 = ode(prev);
