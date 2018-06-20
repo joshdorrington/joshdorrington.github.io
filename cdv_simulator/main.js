@@ -39,7 +39,7 @@
     // Truth state vector
     var truth_i = [0.927796,0.160574,-0.0969953,-0.672758,-0.118184,0.214505], truth_f, truth_i_plot;
     truth_i_plot = truth_i;
-
+    window.addEventListener('resize', function(){two.clear()},false);
     el.addEventListener('click', function(e) {
         console.log(e.clientX);
         console.log(e.clientY);
@@ -59,6 +59,18 @@
             }
             if (noise_type=="stoch"){
               noise=WhiteNoise()
+              //adds white noise onto deterministic update
+              truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
+            }
+            if (noise_type=="hi_stoch"){
+              noise=WhiteNoise()
+              noise[3]=noise[4]=noise[5]=0
+              //adds white noise onto deterministic update
+              truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
+            }
+            if (noise_type=="lo_stoch"){
+              noise=WhiteNoise()
+              noise[0]=noise[1]=noise[2]=0
               //adds white noise onto deterministic update
               truth_f =step(truth_i).map(function(num,idx){return num+sigma*Math.sqrt(dt)*noise[idx];});
             }
@@ -96,7 +108,10 @@
        }
        return noise_vec
     }
-
+    function othername() {
+        var input = document.getElementById("userInput").value;
+        alert(input)
+    }
     function UpdateFromUI(){
         noise_type=doc.getElementById('noise_mode').value
       }
