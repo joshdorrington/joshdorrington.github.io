@@ -9,7 +9,7 @@
 
     // Global parameters
     var dt = 0.005,
-        nEns = 200,
+        nEns = 100,
         noise_type="determ"
         originalObsErr = obsErr = 5,
         freq = 20;
