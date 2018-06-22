@@ -190,7 +190,7 @@
         return [dX1dT(x1,x2,x3,x4,x5,x6), dX2dT(x1,x2,x3,x4,x5,x6), dX3dT(x1,x2,x3,x4,x5,x6),dX4dT(x1,x2,x3,x4,x5,x6),dX5dT(x1,x2,x3,x4,x5,x6),dX6dT(x1,x2,x3,x4,x5,x6)];
     }
 
-    // CdV equations
+    // Lorenz '63 equations
     function dX1dT(x1,x2,x3,x4,x5,x6) {
         return -C*(x1-x1f)+gammatilde1*x3
     }
