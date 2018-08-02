@@ -1,0 +1,64 @@
+<html>
+
+<head>
+
+    <style>
+
+      body {
+          background: url(image3047.png) no-repeat;
+          background-size: 100% 100%;
+        }
+        #panel {
+            width: auto;
+            height: auto;
+            background: rgba(100,100,100,0.5);
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        #panel > input {
+            margin: 10px auto;
+            display: block;
+        }
+
+        #panel > .sliderLabel {
+            text-align: center;
+            margin: 10px auto;
+            display: block;
+            font-family: Helvetica, Arial, sans-serif;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="main"></div>
+    <script src="./two.min.js"></script>
+    <script src="./math.min.js"></script>
+    <script src="./main.js"></script>
+    <div id="panel">
+      <select id="noise_mode">
+        <option value="determ">Deterministic</option>
+        <option value="stoch">Stochastic</option>
+        <option value="hi_stoch">Stochastic in 2 leading EOFs</option>
+        <option value="lo_stoch">Stochastic in 3rd EOF </option>
+      </select>
+
+      <!-- <form id="form" onsubmit="return false;">
+          <input style="position:absolute; top:80%; left:5%; width:40%;" type="text" id="userInput" />
+          <input style="position:absolute; top:50%; left:5%; width:40%;" type="submit" value = "Set std" onclick="othername();" />
+      </form>
+      <script>
+      function othername() {
+          var input = document.getElementById("userInput").value;
+          alert(input)
+      }
+      </script> -->
+
+    </div>
+</body>
+
+</html>
