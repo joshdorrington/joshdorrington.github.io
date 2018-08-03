@@ -133,9 +133,9 @@
         };
     }
 
-    //y is set to 0 on click
+    //y is set to x on click
     function mapToCoord(loc_px) {
-        var scaled_px=[(46*loc_px[0]/two.width)-23,0,(-57*loc_px[1]/two.height)+56]
+        var scaled_px=[(46*loc_px[0]/two.width)-23,(46*loc_px[0]/two.width)-23,(-57*loc_px[1]/two.height)+56]
         console.log(scaled_px)
         return scaled_px
     }

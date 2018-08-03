@@ -13,7 +13,7 @@
         noise_type="determ"
         originalObsErr = obsErr = 5,
         freq = 200;
-        std=2.0
+        std=3.0
 
 
     //global L63 parameters
@@ -25,9 +25,10 @@
         var clicked = false;
 
     // Initialise array storing ensemble of state vectors
-    var ensemble_i = [], ensemble_f;
+    var ensemble_i = [], ensemble_f,reg_swaps=[];
     for (var i = 0; i < nEns; i++) {
         ensemble_i.push([0,0,0]);
+        reg_swaps.push(0)
     }
 
     // Initialise SVG objects
@@ -73,6 +74,10 @@
                       //adds white noise onto deterministic update
                       ensemble_f[i] = step(ensemble_i[i]).map(function(num,idx){return num+std*Math.sqrt(3*dt)*noise[idx];});
                     }
+                    //change colour after regime switch
+                    if ((reg_swaps[i]==0)&((ensemble_i[i][0]/ensemble_f[i][0])<0)){
+                      reg_swaps[i]=1
+                    }
                   }
                 if (t==freq-1){updateEnsemble(ensembleHandle, ensemble_i, ensemble_f);}
                 ensemble_i = ensemble_f.slice()
@@ -98,6 +103,7 @@
             ensemble_i[i][0] = centre[0] + (Math.random()-0.5)/100
             ensemble_i[i][1] = centre[1] + (Math.random()-0.5)/100
             ensemble_i[i][2] = centre[2] + (Math.random()-0.5)/100
+            reg_swaps[i]=0
         }
         ensemble_f = ensemble_i.slice();
     }, false);
@@ -132,7 +138,12 @@
         for (var i = 0; i < nEns; i++) {
             var loc_px = mapToPx(locs_f[i])
             handles[i].translation.set(loc_px.x, loc_px.y);
-
+            if (reg_swaps[i]==0){
+              handles[i].fill='rgba(255,255,255,0.3)'
+            }
+            if (reg_swaps[i]==1){
+              handles[i].fill='rgba(255,0,0,0.3)'
+            }
         }
     }
 
@@ -145,9 +156,9 @@
       };
     }
 
-    //y is set to 0 on click
+    //y is set to x on click
     function mapToCoord(loc_px) {
-        var scaled_px=[(46*loc_px[0]/two.width)-23,0,(-57*loc_px[1]/two.height)+56]
+        var scaled_px=[(46*loc_px[0]/two.width)-23,(46*loc_px[0]/two.width)-23,(-57*loc_px[1]/two.height)+56]
         console.log(scaled_px)
         return scaled_px
     }
