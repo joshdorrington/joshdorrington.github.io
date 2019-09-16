@@ -139,7 +139,7 @@
             var loc_px = mapToPx(locs_f[i])
             handles[i].translation.set(loc_px.x, loc_px.y);
             if (reg_swaps[i]==0){
-              handles[i].fill='rgba(255,255,255,0.3)'
+              handles[i].fill='rgba(255,0,0,0.3)'
             }
             if (reg_swaps[i]==1){
               handles[i].fill='rgba(255,0,0,0.3)'
