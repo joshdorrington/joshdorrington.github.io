@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domino Patterns: Atmospheric Flow Precursors of Heavy Precipitation</title>
+
+    <!-- Google Font for modern styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            box-sizing: border-box;
+            text-align: center; /* Center-align the text in the page */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Space between elements */
+            margin-bottom: 30px;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        select:hover, button:hover {
+            background-color: #ececec;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            margin-bottom: 30px; /* Add margin below image */
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 70vh;
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #explanation-text {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            padding: 0 5%; /* Add padding for smaller screens */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            #explanation-text {
+                font-size: 1rem; /* Smaller font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Title -->
+    <h1>Domino Patterns: Atmospheric Flow Precursors of Heavy Precipitation</h1>
+
+    <!-- Controls container (drop-downs + button in a row) -->
+    <div id="controls">
+        <label for="region-select">Region:</label>
+        <select id="region-select">
+		<option value="14">West Norway + Faroe</option>
+		<option value="4">North Norway + North Finland</option>
+		<option value="5">Central Norway</option>
+		<option value="6">Finnmark</option>
+		<option value="17">North Sweden + North Finland</option>
+		<option value="18">Central Sweden</option>
+		<option value="13">Northern North Sea</option>
+		<option value="36">Southern North Sea</option>
+		<option value="35">Central England + Wales + Ireland</option>
+		<option value="33">West France + South England</option>	
+		<option value="34">Low Countries + Western Germany</option>	
+		<option value="30">Southern France + Coastal North Spain</option>
+		<option value="29">North East Spain</option>
+		<option value="31">NW Iberia</option>
+		<option value="32">SW Iberia + Tangier-Tétouan</option>	
+		<option value="28">South East Spain + North Morocco</option>
+		<option value="21">Corsica + Sardinia</option>
+		<option value="23">Sicily + Calabria</option>
+		<option value="38">South Adriatic</option>
+		<option value="11">North Adriatic</option>
+		<option value="39">North Aegean</option>
+		<option value="3">Aegean + SW Greece</option>
+		<option value="1">Turkey</option>
+		<option value="12">Central Alpine</option>
+		<option value="37">Balkan + SE Europe</option>
+		<option value="9">Central Continental Europe</option>
+		<option value="8">East Continental Europe</option>
+		<option value="7">West Ukraine</option>
+		<option value="10">North East Europe</option>
+		<option value="19">East Baltic</option>
+		<option value="20">West Baltic</option>
+		<option value="27">South Morocco + South West Algeria</option>
+		<option value="26">West Algeria + Balearics</option>
+		<option value="25">Central Algeria</option>
+		<option value="24">South Tunisia + East Algeria</option>
+		<option value="22">Tell Atlas</option>
+		<option value="15">West Libya</option>
+		<option value="16">Egypt + East Libya</option>
+        </select>
+
+        <label for="season-select">Season:</label>
+        <select id="season-select">
+            <option value="MAM">Spring</option>
+            <option value="JJA">Summer</option>
+            <option value="SON">Autumn</option>
+            <option value="DJF">Winter</option>
+        </select>
+
+        <label for="variable-select">Variable:</label>
+        <select id="variable-select">
+            <option value="z500">Z500</option>
+            <option value="sp">Surface pressure</option>
+            <option value="ivtmag">IVTmag</option>
+            <option value="tcwv">TCWV</option>            
+            <option value="u850">U850</option>
+            <option value="v850">V850</option>
+            <option value="u250">U250</option>                        
+            <option value="v250">V250</option>
+        </select>
+
+        <button onclick="displayImage()">Display Image</button>
+    </div>
+
+    <!-- Image container -->
+    <div id="image-container">
+        <img id="selected-image" src="" alt="Selected Image">
+    </div>
+
+    <!-- Explanatory text -->
+    <div id="explanation-text">
+        <p><strong>Understanding Extreme Rainfall Through Flow Precursors</strong></p>
+
+        <p>Extreme rainfall events don't just happen out of the blue — they’re triggered by developing atmospheric conditions, like a line of 'dynamical dominoes' falling into place. By pinpointing the weather patterns that precede these extremes, we can better track the evolving risk of heavy rainfall and evaluate how well our models capture these events.</p>
+
+        <p>This page visualizes the atmospheric flow patterns, or 'precursors,' that lead up to severe regional precipitation. These precursors are based on data from ERA5 and are calculated using the recently-developed <strong>Domino method</strong> from <a href="https://doi.org/10.1002/qj.4622" target="_blank">Dorrington et al. (2024)</a>. The regions shown here are 'optimal', in that they maximise the correlations between gridpoint daily rainfall within each region. Region names are approximate and should not be interpreted as geopolitical statements.</p>
+
+        <p>Use the dropdowns above to explore how large-scale weather patterns influence extreme rainfall across different seasons and regions.</p>
+
+        <p>For any questions, feel free to reach out to: <a href="mailto:joshua.dorrington@uib.no">joshua.dorrington@uib.no</a>.</p>
+    </div>
+
+    <script>
+        function displayImage() {
+            // Get the selected values from the dropdowns
+            const region = document.getElementById('region-select').value;
+            const season = document.getElementById('season-select').value;
+            const variable = document.getElementById('variable-select').value;
+
+            // Construct the image filename based on the selected options
+            const imageName = `ERA5land_pattern_catalogue/region${region}_${season}_${variable}.png`;
+
+            // Update the image source and make it visible
+            const img = document.getElementById('selected-image');
+            img.src = imageName;
+            img.style.display = 'block';
+        }
+        // Automatically display the image for the first option when the page loads
+        window.onload = function() {
+            displayImage();   
+        }
+    </script>
+</body>
+</html>
+
