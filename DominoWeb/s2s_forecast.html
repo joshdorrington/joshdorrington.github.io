@@ -101,7 +101,9 @@
 
         function formatDate(offset) {
             const date = new Date();
-            date.setDate(today.getDate() - offset);
+            <!-- const base_date = today.getDate() -->
+            const base_date = Date(2024, 11, 18)
+            date.setDate(base_date - offset);
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
@@ -116,7 +118,7 @@
             const date = formatDate(offset);
 
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variable}_lag0.png`;
-            image2.src = `ERA5_pattern_catalogue/region${regionId}_${season}_${variable}.png`;
+            image2.src = `ERA5land_pattern_catalogue/region${regionId}_${season}_${variable}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
         }
