@@ -69,10 +69,10 @@
 
         <label for="variable">Variable:</label>
         <select id="variable">
-            <option value="Upl200">Upl200,u250</option>
-            <option value="Zpl500">Zpl500,z500</option>
-            <option value="tcwv">tcwv,tcwv</option>
-            <option value="sp">sp,sp</option>
+            <option value="Upl200,u250">U200</option>
+            <option value="Zpl500,z500">Z500</option>
+            <option value="tcwv,tcwv">tcwv</option>
+            <option value="sp,sp">sp</option>
 
         </select>
     </div>
@@ -98,7 +98,7 @@
         const dateSlider = document.getElementById('date');
         const seasonDropdown = document.getElementById('season');
         const regionDropdown = document.getElementById('region');
-        const variableDropdown = document.getElementById('variable').value.split(',');
+        const variableDropdown = document.getElementById('variable');
         const image1 = document.getElementById('image1');
         const image2 = document.getElementById('image2');
 
@@ -115,13 +115,13 @@
         function updateImages() {
             const season = seasonDropdown.value;
             const regionId = regionDropdown.value;
-            const variable1 = variableDropdown[0];
-            const variable2 = variableDropdown[1];
+            const variable = variableDropdown.value;
+            const variables = variable.split(',')
             const offset = dateSlider.value;
             const date = formatDate(offset);
 
-            image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variable1}_lag0.png`;
-            image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variable2}.png`;
+            image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
+            image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
         }
