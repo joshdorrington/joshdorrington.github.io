@@ -58,8 +58,9 @@
         <label for="variable">Variable:</label>
         <select id="variable">
             <option value="Upl200">Upl200</option>
-            <option value="Temp">Temp</option>
-            <option value="Wind">Wind</option>
+            <option value="Zpl500">Zpl500</option>
+            <option value="tcwv">tcwv</option>
+
         </select>
     </div>
 
@@ -104,8 +105,8 @@
             const offset = dateSlider.value;
             const date = formatDate(offset);
 
-            image1.src = `${date}_${season}Region${regionId}_${variable}_lag0.png`;
-            image2.src = `${season}Region${regionId}_${variable}_lag0.png`;
+            image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variable}_lag0.png`;
+            image2.src = `ERA5_pattern_catalogue/region${regionId}_${season}_${variable}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
         }
