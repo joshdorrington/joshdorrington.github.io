@@ -49,21 +49,13 @@
     <h2>Explore Seasonal Images by Region and Variable</h2>
 
     <div class="dropdown">
-        <label for="season">Season:</label>
-        <select id="season">
-            <option value="DJF">DJF</option>
-            <option value="MAM">MAM</option>
-            <option value="JJA">JJA</option>
-            <option value="SON">SON</option>
-        </select>
-
         <label for="region">Region ID:</label>
         <select id="region">
             <option value="01">01</option>
-            <option value="02">02</option>
             <option value="03">03</option>
             <option value="05">05</option>
             <option value="14">14</option>
+            <option value="34">34</option>
 
         </select>
 
@@ -112,13 +104,28 @@
             return `${year}${month}${day}00`; // Return formatted date string
         }
         
+        function getSeason(date) {
+            const month = date.getMonth(); // Get the month (0-11)
+        
+            // Return season based on the month
+            if (month === 11 || month === 0 || month === 1) {
+                return 'DJF'; // December, January, February
+            } else if (month === 2 || month === 3 || month === 4) {
+                return 'MAM'; // March, April, May
+            } else if (month === 5 || month === 6 || month === 7) {
+                return 'JJA'; // June, July, August
+            } else if (month === 8 || month === 9 || month === 10) {
+                return 'SON'; // September, October, November
+            }
+        }
+        
         function updateImages() {
-            const season = seasonDropdown.value;
             const regionId = regionDropdown.value;
             const variable = variableDropdown.value;
             const variables = variable.split(',')
             const offset = dateSlider.value;
             const date = formatDate(offset);
+            const season = getSeason(offset);
 
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
             image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
