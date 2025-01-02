@@ -42,6 +42,30 @@
             margin-top: 20px;
             width: 80%;
         }
+        .nav-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .nav-button:focus {
+            outline: none;
+        }
+
+        .nav-button:active {
+            background-color: #004085;
+        }
+        
     </style>
 </head>
 <body>
@@ -51,6 +75,7 @@
     <div class="dropdown">
         <label for="region">Region ID:</label>
         <select id="region">
+            <option value="01">01</option>
             <option value="03">03</option>
             <option value="04">04</option>
             <option value="05">05</option>
@@ -115,7 +140,9 @@
     <div class="description">
         <p>Explore the images for different seasons, regions, and variables. Use the controls above to select your preferences and see the corresponding images below.</p>
     </div>
-
+    <div class="button-container">
+        <button class="nav-button" onclick="window.location.href='DominoWeb.html';">Explore Patterns</button>
+    </div>
     <script>
         const today = new Date();
         const dateDisplay = document.getElementById('date-display');
