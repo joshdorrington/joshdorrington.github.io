@@ -69,9 +69,10 @@
 
         <label for="variable">Variable:</label>
         <select id="variable">
-            <option value="Upl200">Upl200</option>
-            <option value="Zpl500">Zpl500</option>
-            <option value="tcwv">tcwv</option>
+            <option value="Upl200">Upl200,u250</option>
+            <option value="Zpl500">Zpl500,z500</option>
+            <option value="tcwv">tcwv,tcwv</option>
+            <option value="tcwv">sp,sp</option>
 
         </select>
     </div>
@@ -119,7 +120,7 @@
             const date = formatDate(offset);
 
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variable}_lag0.png`;
-            image2.src = `ERA5land_pattern_catalogue/region${regionId}_${season}_${variable}.png`;
+            image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variable}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
         }
