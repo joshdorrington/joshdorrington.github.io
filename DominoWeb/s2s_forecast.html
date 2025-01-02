@@ -88,7 +88,6 @@
         const today = new Date();
         const dateDisplay = document.getElementById('date-display');
         const dateSlider = document.getElementById('date');
-        const seasonDropdown = document.getElementById('season');
         const regionDropdown = document.getElementById('region');
         const variableDropdown = document.getElementById('variable');
         const image1 = document.getElementById('image1');
@@ -125,7 +124,7 @@
             const variables = variable.split(',')
             const offset = dateSlider.value;
             const date = formatDate(offset);
-            const season = getSeason(offset);
+            const season = getSeason(new Date(offset));
 
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
             image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
