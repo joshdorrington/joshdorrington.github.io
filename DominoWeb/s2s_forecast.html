@@ -131,7 +131,7 @@
             const season = getSeason(dateObj);
         
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
-            image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
+            image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
         
             dateDisplay.textContent = `Date: ${date}`;
         }
