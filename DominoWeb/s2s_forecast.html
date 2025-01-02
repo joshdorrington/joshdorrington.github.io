@@ -121,14 +121,18 @@
         function updateImages() {
             const regionId = regionDropdown.value;
             const variable = variableDropdown.value;
-            const variables = variable.split(',')
+            const variables = variable.split(',');
             const offset = dateSlider.value;
             const date = formatDate(offset);
-            const season = getSeason(new Date(date));
-
+        
+            // Convert the formatted date string to a Date object
+            const dateObj = new Date(date.substring(0, 4), date.substring(4, 6) - 1, date.substring(6, 8));
+        
+            const season = getSeason(dateObj);
+        
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
             image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
-
+        
             dateDisplay.textContent = `Date: ${date}`;
         }
 
