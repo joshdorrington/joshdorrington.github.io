@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Image Viewer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .dropdown, .slider {
+            margin: 10px 0;
+        }
+        img {
+            max-width: 400px;
+            max-height: 300px;
+            border: 1px solid #ccc;
+        }
+        .description {
+            margin-top: 20px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Image Viewer</h1>
+    <h2>Explore Seasonal Images by Region and Variable</h2>
+
+    <div class="dropdown">
+        <label for="season">Season:</label>
+        <select id="season">
+            <option value="DJF">DJF</option>
+            <option value="MAM">MAM</option>
+            <option value="JJA">JJA</option>
+            <option value="SON">SON</option>
+        </select>
+
+        <label for="region">Region ID:</label>
+        <select id="region">
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="05">05</option>
+        </select>
+
+        <label for="variable">Variable:</label>
+        <select id="variable">
+            <option value="Upl200">Upl200</option>
+            <option value="Temp">Temp</option>
+            <option value="Wind">Wind</option>
+        </select>
+    </div>
+
+    <div class="slider">
+        <label for="date">Select Date:</label>
+        <input type="range" id="date" min="0" max="15" step="1">
+        <span id="date-display"></span>
+    </div>
+
+    <div class="image-container">
+        <img id="image1" src="" alt="Image 1">
+        <img id="image2" src="" alt="Image 2">
+    </div>
+
+    <div class="description">
+        <p>Explore the images for different seasons, regions, and variables. Use the controls above to select your preferences and see the corresponding images below.</p>
+    </div>
+
+    <script>
+        const today = new Date();
+        const dateDisplay = document.getElementById('date-display');
+        const dateSlider = document.getElementById('date');
+        const seasonDropdown = document.getElementById('season');
+        const regionDropdown = document.getElementById('region');
+        const variableDropdown = document.getElementById('variable');
+        const image1 = document.getElementById('image1');
+        const image2 = document.getElementById('image2');
+
+        function formatDate(offset) {
+            const date = new Date();
+            date.setDate(today.getDate() - offset);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}${month}${day}00`;
+        }
+
+        function updateImages() {
+            const season = seasonDropdown.value;
+            const regionId = regionDropdown.value;
+            const variable = variableDropdown.value;
+            const offset = dateSlider.value;
+            const date = formatDate(offset);
+
+            image1.src = `${date}_${season}Region${regionId}_${variable}_lag0.png`;
+            image2.src = `${season}Region${regionId}_${variable}_lag0.png`;
+
+            dateDisplay.textContent = `Date: ${date}`;
+        }
+
+        dateSlider.addEventListener('input', updateImages);
+        seasonDropdown.addEventListener('change', updateImages);
+        regionDropdown.addEventListener('change', updateImages);
+        variableDropdown.addEventListener('change', updateImages);
+
+        // Initialize with default values
+        updateImages();
+    </script>
+</body>
+</html>
