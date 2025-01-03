@@ -42,6 +42,30 @@
             margin-top: 20px;
             width: 80%;
         }
+        .nav-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .nav-button:focus {
+            outline: none;
+        }
+
+        .nav-button:active {
+            background-color: #004085;
+        }
+        
     </style>
 </head>
 <body>
@@ -53,18 +77,51 @@
         <select id="region">
             <option value="01">01</option>
             <option value="03">03</option>
+            <option value="04">04</option>
             <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
             <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+            <option value="33">33</option>
             <option value="34">34</option>
-
+            <option value="35">35</option>
+            <option value="36">36</option>
+            <option value="37">37</option>
+            <option value="38">38</option>
+            <option value="39">39</option>            
         </select>
 
         <label for="variable">Variable:</label>
         <select id="variable">
-            <option value="Upl200,u250">U200</option>
             <option value="Zpl500,z500">Z500</option>
-            <option value="tcwv,tcwv">tcwv</option>
-            <option value="sp,sp">sp</option>
+            <option value="Upl200,u250">U200</option>
+            <option value="Vpl200,v250">V200</option>
+            <option value="tcwv,tcwv">TCWV</option>
+            <option value="IVTmag,IVTmag">IVTmag</option>
 
         </select>
     </div>
@@ -83,7 +140,9 @@
     <div class="description">
         <p>Explore the images for different seasons, regions, and variables. Use the controls above to select your preferences and see the corresponding images below.</p>
     </div>
-
+    <div class="button-container">
+        <button class="nav-button" onclick="window.location.href='DominoWeb.html';">Explore Patterns</button>
+    </div>
     <script>
         const today = new Date();
         const dateDisplay = document.getElementById('date-display');
@@ -121,14 +180,18 @@
         function updateImages() {
             const regionId = regionDropdown.value;
             const variable = variableDropdown.value;
-            const variables = variable.split(',')
+            const variables = variable.split(',');
             const offset = dateSlider.value;
             const date = formatDate(offset);
-            const season = getSeason(new Date(date));
-
+        
+            // Convert the formatted date string to a Date object
+            const dateObj = new Date(date.substring(0, 4), date.substring(4, 6) - 1, date.substring(6, 8));
+        
+            const season = getSeason(dateObj);
+        
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
-            image2.src = `ERA5land_pattern_catalogue/region${String(parseInt(regionId))}_${season}_${variables[1]}.png`;
-
+            image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
+        
             dateDisplay.textContent = `Date: ${date}`;
         }
 
