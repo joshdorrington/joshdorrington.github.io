@@ -1,78 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Parameters to GitHub test</title>
+  <meta charset="UTF-8">
+  <title>Send Parameters to Google Sheets</title>
 </head>
 <body>
-    <h1>Set Parameters</h1>
+  <form id="parameterForm">
+    <label for="param1">Parameter 1:</label>
+    <input type="text" id="param1" name="param1">
+    <br>
+    <label for="param2">Parameter 2:</label>
+    <input type="text" id="param2" name="param2">
+    <br>
+    <button type="submit">Submit</button>
+  </form>
 
-    <label for="param1">Choose Parameter 1:</label>
-    <select id="param1">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-    </select>
+  <p id="responseMessage"></p>
 
-    <br><br>
+  <script>
+    document.getElementById('parameterForm').addEventListener('submit', async function(e) {
+      e.preventDefault(); // Prevent form from reloading the page
 
-    <label for="param2">Choose Parameter 2:</label>
-    <select id="param2">
-        <option value="alpha">Alpha</option>
-        <option value="beta">Beta</option>
-        <option value="gamma">Gamma</option>
-    </select>
-
-    <br><br>
-
-    <button onclick="sendParameters()">Submit</button>
-
-    <p id="response"></p>
-
-    <script>
-      
-    async function sendParameters() {
       const param1 = document.getElementById('param1').value;
       const param2 = document.getElementById('param2').value;
-  
-      const responseText = document.getElementById('response');
-  
-      // GitHub repository details
-      const owner = 'joshdorrington'; // Your GitHub username
-      const repo = 'joshdorrington.github.io'; // Your repository name
-      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/github-actions.yml/dispatches`;
-  
-      // Payload to pass to the GitHub Action
-      const payload = {
-          ref: 'master',  // Or your default branch
-          inputs: {
-              param1,
-              param2,
-          }
-      };
-  
+
+      // URL of your deployed Google Apps Script web app
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbz7Ts5FCpowuGKCHTkUdpZi7YWDMWaS9k20lX3AN-x5AzwstcF8KCFLIPZDJCLebYY/exec';
+
       try {
-          const response = await fetch(apiUrl, {
-              method: 'POST',
-              headers: {
-                  'Authorization': `token YOUR_GITHUB_PERSONAL_ACCESS_TOKEN`,  // Use a secure token here
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(payload),
-          });
-  
-          const data = await response.json();
-  
-          if (response.ok) {
-              responseText.textContent = data.message;
-          } else {
-              responseText.textContent = 'Failed to save parameters.';
-          }
+        const response = await fetch(scriptUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `param1=${param1}&param2=${param2}`,
+        });
+
+        const responseText = await response.text();
+        document.getElementById('responseMessage').textContent = responseText;
       } catch (error) {
-          responseText.textContent = 'Error connecting to GitHub API.';
-    }
-  }
-    </script>
+        document.getElementById('responseMessage').textContent = 'Error sending data.';
+      }
+    });
+  </script>
 </body>
 </html>
