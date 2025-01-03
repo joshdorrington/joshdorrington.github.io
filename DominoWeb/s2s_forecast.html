@@ -42,6 +42,13 @@
             margin-top: 20px;
             width: 80%;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
         .nav-button {
             background-color: #007BFF;
             color: #fff;
@@ -133,6 +140,7 @@
     </div>
 
     <div class="image-container">
+        <img id="image3" src="" alt="Image 3">
         <img id="image1" src="" alt="Image 1">
         <img id="image2" src="" alt="Image 2">
     </div>
@@ -191,7 +199,8 @@
         
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
             image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
-        
+            image3.src = `../plotted_regions/region${regionId}.png`;
+
             dateDisplay.textContent = `Date: ${date}`;
         }
 
