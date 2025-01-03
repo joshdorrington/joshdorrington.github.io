@@ -1,1 +1,24 @@
+name: Save Parameters
+
+on:
+  workflow_dispatch:  # Allows the workflow to be triggered manually or via the API.
+
+jobs:
+  save_parameters:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Append parameters to file
+      run: |
+        echo "Parameter 1: ${{ github.event.inputs.param1 }}, Parameter 2: ${{ github.event.inputs.param2 }}" >> parameters.txt
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "actions@github.com"
+        git add parameters.txt
+        git commit -m "Update parameters"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
