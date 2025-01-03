@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Image Viewer</title>
+    <title>Forecast Activity of Heavy Rainfall Precursors</title>
     <!-- Google Font for modern styling -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
@@ -76,8 +76,8 @@
     </style>
 </head>
 <body>
-    <h1>Dynamic Image Viewer</h1>
-    <h2>Explore Seasonal Images by Region and Variable</h2>
+    <h1>Forecast Activity of Heavy Rainfall Precursors</h1>
+    <h2>Use the dropdown menus to monitor heavy rainfall precursor activity in the ECMWF subseasonal ensemble forecast. </h2>
 
     <div class="dropdown">
         <label for="region">Region ID:</label>
@@ -146,7 +146,11 @@
     </div>
 
     <div class="description">
-        <p>Explore the images for different seasons, regions, and variables. Use the controls above to select your preferences and see the corresponding images below.</p>
+        <p>This webpage provides near-real-time monitoring of heavy rainfall precursors -- flow patterns which typically increase the risk of 90th percentile+ rainfall events in different regions of Europe and the Mediterranean. Precursor indices are standardised, with large positive values (heuristically; >1.5) indicating a substantially higher risk of heavy rainfall.</p>
+        <p>For more detail on the precursor approach, see our  <a href="papers.html">papers</a> on this topic.</p>
+
+        <p>This is a research product provided with no guarantees of reliability: it should not be used in lieu of official forecasts from operational weather centres. Regions are defined based on a clustering algorithm which groups together locations with highly correlated daily rainfall. Names of regions are necessarily approximate, and should not be taken as an implied comment on geopolitical borders.</p>
+
     </div>
     <div class="button-container">
         <button class="nav-button" onclick="window.location.href='index.html';">Explore Patterns</button>
