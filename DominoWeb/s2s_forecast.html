@@ -167,7 +167,7 @@
         const image2 = document.getElementById('image2');
 
         function formatDate(offset) {
-            const base_date = new Date(2024, 10, 18); // Fixed base date (2024-11-18)
+            const base_date = today.getDate();
             const date = new Date(base_date); // Clone the base date
             date.setDate(base_date.getDate() - (15 - offset)); // Subtract offset
             const year = date.getFullYear();
