@@ -149,7 +149,7 @@
         <p>Explore the images for different seasons, regions, and variables. Use the controls above to select your preferences and see the corresponding images below.</p>
     </div>
     <div class="button-container">
-        <button class="nav-button" onclick="window.location.href='DominoWeb.html';">Explore Patterns</button>
+        <button class="nav-button" onclick="window.location.href='index.html';">Explore Patterns</button>
     </div>
     <script>
         const today = new Date();
@@ -199,7 +199,7 @@
         
             image1.src = `IFS_indices/${date}_${season}Region${regionId}_${variables[0]}_lag0.png`;
             image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
-            image3.src = `../plotted_regions/region${regionId}.png`;
+            image3.src = `../plotted_regions/region_${regionId}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
         }
