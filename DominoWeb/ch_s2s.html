@@ -77,7 +77,7 @@
     </style>
 </head>
 <body>
-    <h1>Forecast Activity of Heavy Rainfall Precursors</h1>
+    <h1>Forecast Activity of Heavy Rainfall Precursors (p95, 24h)</h1>
     <h2>Use the dropdown menus to monitor heavy rainfall precursor activity in the first 15 days of the ECMWF subseasonal ensemble forecast. </h2>
 
     <div class="dropdown">
@@ -167,7 +167,7 @@
             const season = getSeason(dateObj);
         
             image1.src = `Meteoswiss/${date}_${season}_R${regionId}_${variables[0]}_lag0.png`;
-            image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
+            image2.src = `../IFS_patterns/${season}_R${regionId}_${variables[0]}_lag0.png`;
             image3.src = `../plotted_regions/region_${regionId}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
