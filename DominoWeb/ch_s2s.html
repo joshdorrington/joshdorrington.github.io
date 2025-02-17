@@ -167,7 +167,11 @@
             const season = getSeason(dateObj);
         
             image1.src = `Meteoswiss/${date}_${season}_R${regionId}_${variables[0]}_lag0.png`;
+<<<<<<< HEAD
             image2.src = `../IFS_patterns/${season}_R${regionId}_${variables[0]}_lag0.png`;
+=======
+            image2.src = `../IFS_patterns/${season}_region${regionId}_${variables[0]}.png`;
+>>>>>>> upstream/master
             image3.src = `../plotted_regions/region_${regionId}.png`;
 
             dateDisplay.textContent = `Date: ${date}`;
